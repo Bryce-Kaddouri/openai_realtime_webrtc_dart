@@ -61,9 +61,7 @@ class RealtimeAPI extends RealtimeEventHandler {
   ///
   /// [model] specifies which model to use. You can find the list of available
   /// models [here](https://platform.openai.com/docs/models).
-  Future<bool> connect({
-    final String model = RealtimeUtils.defaultModel,
-  }) async {
+  Future<bool> connect({final String model = RealtimeUtils.defaultModel}) async {
     if (isConnected()) {
       throw Exception('Already connected');
     }
@@ -73,7 +71,8 @@ class RealtimeAPI extends RealtimeEventHandler {
     final ephemeralKey = await getEphemeralKey(apiKey!);
 
     _model = model;
-    final uri = Uri.parse('$url?model=$_model');
+    //final uri = Uri.parse('$url?model=$_model');
+    final uri = Uri.parse('https://api.openai.com/v1/realtime/sessions');
 
     try {
       final webrtc = await connectWebRTC(uri, ephemeralKey, headers);
@@ -192,9 +191,7 @@ class RealtimeAPI extends RealtimeEventHandler {
       throw Exception('RealtimeAPI is not connected');
     }
 
-    final finalEvent = event.copyWith(
-      eventId: RealtimeUtils.generateId(),
-    );
+    final finalEvent = event.copyWith(eventId: RealtimeUtils.generateId());
 
     _logEvent(finalEvent, fromClient: true);
     await dispatch(finalEvent.type, finalEvent);
@@ -205,10 +202,7 @@ class RealtimeAPI extends RealtimeEventHandler {
     await _dataChannel!.send(RTCDataChannelMessage(data));
   }
 
-  void _logEvent(
-    RealtimeEvent event, {
-    required bool fromClient,
-  }) {
+  void _logEvent(RealtimeEvent event, {required bool fromClient}) {
     if (!debug) {
       return;
     }
@@ -236,8 +230,6 @@ class RealtimeAPI extends RealtimeEventHandler {
     replaceAudioProperty(eventJson);
 
     final eventString = jsonEncode(eventJson);
-    _log.info(
-      '${fromClient ? 'sent' : 'received'}: ${event.type.name} $eventString',
-    );
+    _log.info('${fromClient ? 'sent' : 'received'}: ${event.type.name} $eventString');
   }
 }
