@@ -138,11 +138,11 @@ class ResponseWebRTC {
 }
 
 /// Retrieves an ephemeral key for the specified API key.
-Future<String> getEphemeralKey(String apiKey) async {
+Future<String> getEphemeralKey(String apiKey, String model) async {
   try {
     final url = Uri.parse('https://api.openai.com/v1/realtime/sessions');
     final body = jsonEncode({
-      "model": "gpt-realtime",
+      "model": model,
       "voice": "verse",
     });
     final dio = Dio();

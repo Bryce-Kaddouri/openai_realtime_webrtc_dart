@@ -68,7 +68,7 @@ class RealtimeAPI extends RealtimeEventHandler {
 
     _configLogger();
 
-    final ephemeralKey = await getEphemeralKey(apiKey!);
+    final ephemeralKey = await getEphemeralKey(apiKey!, model);
 
     _model = model;
     //final uri = Uri.parse('$url?model=$_model');
