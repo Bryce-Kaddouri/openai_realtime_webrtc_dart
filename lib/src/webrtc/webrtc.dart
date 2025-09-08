@@ -140,15 +140,10 @@ class ResponseWebRTC {
 /// Retrieves an ephemeral key for the specified API key.
 Future<String> getEphemeralKey(String apiKey) async {
   try {
-    final url = Uri.parse('https://api.openai.com/v1/realtime/client_secrets');
+    final url = Uri.parse('https://api.openai.com/v1/realtime/sessions');
     final body = jsonEncode({
-      'session': {
-        'type': 'realtime',
-        'model': 'gpt-realtime',
-        'audio': {
-          'output': {'voice': 'marin'},
-        },
-      },
+      "model": "gpt-realtime",
+      "voice": "verse",
     });
     final dio = Dio();
     dio.options.headers['Authorization'] = 'Bearer $apiKey';
@@ -156,10 +151,10 @@ Future<String> getEphemeralKey(String apiKey) async {
     final response = await dio.post<Map<String, dynamic>>(url.toString(), data: body);
     if (response.statusCode == 200) {
       final jsonResponse = response.data;
-      if (jsonResponse?['value'] == null) {
+      if (jsonResponse?["client_secret"]["value"] == null) {
         throw Exception('Failed to get ephemeral key: ${jsonResponse?['error']}');
       }
-      return jsonResponse!['value'];
+      return jsonResponse!["client_secret"]["value"];
     }
     throw Exception('Failed to get ephemeral key: ${response.statusCode}');
   } catch (e) {

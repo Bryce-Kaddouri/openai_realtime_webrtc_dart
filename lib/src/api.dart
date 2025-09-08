@@ -20,7 +20,7 @@ final _log = Logger('openai_realtime_dart.api');
 class RealtimeAPI extends RealtimeEventHandler {
   /// Create a new [RealtimeAPI] instance.
   RealtimeAPI({
-    this.url = 'wss://api.openai.com/v1/realtime',
+    this.url = 'https://api.openai.com/v1/realtime',
     this.apiKey,
     this.headers,
     this.debug = false,
@@ -72,7 +72,7 @@ class RealtimeAPI extends RealtimeEventHandler {
 
     _model = model;
     //final uri = Uri.parse('$url?model=$_model');
-    final uri = Uri.parse('$url?model=$_model');
+    final uri = Uri.parse(url);
 
     try {
       final webrtc = await connectWebRTC(uri, ephemeralKey, headers);

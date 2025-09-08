@@ -30,7 +30,7 @@ final _log = Logger('openai_realtime_dart.api');
 class RealtimeClient extends RealtimeEventHandler {
   /// Create a new [RealtimeClient] instance.
   RealtimeClient({
-    final String url = 'https://api.openai.com/v1/realtime/calls',
+    final String url = 'https://api.openai.com/v1/realtime',
     final String? apiKey,
     final Map<String, String>? headers,
     final bool debug = false,
