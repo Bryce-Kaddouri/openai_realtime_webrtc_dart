@@ -72,7 +72,7 @@ class RealtimeAPI extends RealtimeEventHandler {
 
     _model = model;
     //final uri = Uri.parse('$url?model=$_model');
-    final uri = Uri.parse('https://api.openai.com/v1/realtime/sessions');
+    final uri = Uri.parse('$url?model=$_model');
 
     try {
       final webrtc = await connectWebRTC(uri, ephemeralKey, headers);
