@@ -20,4 +20,6 @@ enum ContentType {
   text,
   @JsonValue('audio')
   audio,
+  @JsonValue('output_audio')
+  outputAudio,
 }

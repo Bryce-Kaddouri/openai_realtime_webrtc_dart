@@ -15,6 +15,9 @@ abstract class SessionConfig with _$SessionConfig {
 
   /// Factory constructor for SessionConfig
   const factory SessionConfig({
+    /// The session type.
+    @Default(SessionConfigType.realtime) SessionConfigType type,
+
     /// Ephemeral key returned by the API.
     @JsonKey(name: 'client_secret', includeIfNull: false)
     SessionConfigClientSecret? clientSecret,
@@ -104,6 +107,7 @@ abstract class SessionConfig with _$SessionConfig {
 
   /// List of all property names of schema
   static const List<String> propertyNames = [
+    'type',
     'client_secret',
     'modalities',
     'instructions',
@@ -126,6 +130,7 @@ abstract class SessionConfig with _$SessionConfig {
   /// Map representation of object (not serialized)
   Map<String, dynamic> toMap() {
     return {
+      'type': type,
       'client_secret': clientSecret,
       'modalities': modalities,
       'instructions': instructions,
@@ -140,6 +145,16 @@ abstract class SessionConfig with _$SessionConfig {
       'max_response_output_tokens': maxResponseOutputTokens,
     };
   }
+}
+
+// ==========================================
+// ENUM: SessionConfigType
+// ==========================================
+
+/// The session type.
+enum SessionConfigType {
+  @JsonValue('realtime')
+  realtime,
 }
 
 // ==========================================

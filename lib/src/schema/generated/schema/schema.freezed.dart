@@ -8143,6 +8143,9 @@ class _$SessionMaxResponseOutputTokensStringCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$SessionConfig {
+  /// The session type.
+  SessionConfigType get type;
+
   /// Ephemeral key returned by the API.
   @JsonKey(name: 'client_secret', includeIfNull: false)
   SessionConfigClientSecret? get clientSecret;
@@ -8242,6 +8245,7 @@ mixin _$SessionConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SessionConfig &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.clientSecret, clientSecret) ||
                 other.clientSecret == clientSecret) &&
             const DeepCollectionEquality()
@@ -8272,6 +8276,7 @@ mixin _$SessionConfig {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      type,
       clientSecret,
       const DeepCollectionEquality().hash(modalities),
       instructions,
@@ -8287,7 +8292,7 @@ mixin _$SessionConfig {
 
   @override
   String toString() {
-    return 'SessionConfig(clientSecret: $clientSecret, modalities: $modalities, instructions: $instructions, voice: $voice, inputAudioFormat: $inputAudioFormat, outputAudioFormat: $outputAudioFormat, inputAudioTranscription: $inputAudioTranscription, turnDetection: $turnDetection, tools: $tools, toolChoice: $toolChoice, temperature: $temperature, maxResponseOutputTokens: $maxResponseOutputTokens)';
+    return 'SessionConfig(type: $type, clientSecret: $clientSecret, modalities: $modalities, instructions: $instructions, voice: $voice, inputAudioFormat: $inputAudioFormat, outputAudioFormat: $outputAudioFormat, inputAudioTranscription: $inputAudioTranscription, turnDetection: $turnDetection, tools: $tools, toolChoice: $toolChoice, temperature: $temperature, maxResponseOutputTokens: $maxResponseOutputTokens)';
   }
 }
 
@@ -8298,7 +8303,8 @@ abstract mixin class $SessionConfigCopyWith<$Res> {
       _$SessionConfigCopyWithImpl;
   @useResult
   $Res call(
-      {@JsonKey(name: 'client_secret', includeIfNull: false)
+      {SessionConfigType type,
+      @JsonKey(name: 'client_secret', includeIfNull: false)
       SessionConfigClientSecret? clientSecret,
       @JsonKey(includeIfNull: false) List<Modality>? modalities,
       @JsonKey(includeIfNull: false) String? instructions,
@@ -8349,6 +8355,7 @@ class _$SessionConfigCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? type = null,
     Object? clientSecret = freezed,
     Object? modalities = freezed,
     Object? instructions = freezed,
@@ -8363,6 +8370,10 @@ class _$SessionConfigCopyWithImpl<$Res>
     Object? maxResponseOutputTokens = freezed,
   }) {
     return _then(_self.copyWith(
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as SessionConfigType,
       clientSecret: freezed == clientSecret
           ? _self.clientSecret
           : clientSecret // ignore: cast_nullable_to_non_nullable
@@ -8583,6 +8594,7 @@ extension SessionConfigPatterns on SessionConfig {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            SessionConfigType type,
             @JsonKey(name: 'client_secret', includeIfNull: false)
             SessionConfigClientSecret? clientSecret,
             @JsonKey(includeIfNull: false) List<Modality>? modalities,
@@ -8619,6 +8631,7 @@ extension SessionConfigPatterns on SessionConfig {
     switch (_that) {
       case _SessionConfig() when $default != null:
         return $default(
+            _that.type,
             _that.clientSecret,
             _that.modalities,
             _that.instructions,
@@ -8652,6 +8665,7 @@ extension SessionConfigPatterns on SessionConfig {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            SessionConfigType type,
             @JsonKey(name: 'client_secret', includeIfNull: false)
             SessionConfigClientSecret? clientSecret,
             @JsonKey(includeIfNull: false) List<Modality>? modalities,
@@ -8687,6 +8701,7 @@ extension SessionConfigPatterns on SessionConfig {
     switch (_that) {
       case _SessionConfig():
         return $default(
+            _that.type,
             _that.clientSecret,
             _that.modalities,
             _that.instructions,
@@ -8719,6 +8734,7 @@ extension SessionConfigPatterns on SessionConfig {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            SessionConfigType type,
             @JsonKey(name: 'client_secret', includeIfNull: false)
             SessionConfigClientSecret? clientSecret,
             @JsonKey(includeIfNull: false) List<Modality>? modalities,
@@ -8754,6 +8770,7 @@ extension SessionConfigPatterns on SessionConfig {
     switch (_that) {
       case _SessionConfig() when $default != null:
         return $default(
+            _that.type,
             _that.clientSecret,
             _that.modalities,
             _that.instructions,
@@ -8776,7 +8793,8 @@ extension SessionConfigPatterns on SessionConfig {
 @JsonSerializable()
 class _SessionConfig extends SessionConfig {
   const _SessionConfig(
-      {@JsonKey(name: 'client_secret', includeIfNull: false) this.clientSecret,
+      {this.type = SessionConfigType.realtime,
+      @JsonKey(name: 'client_secret', includeIfNull: false) this.clientSecret,
       @JsonKey(includeIfNull: false) final List<Modality>? modalities,
       @JsonKey(includeIfNull: false) this.instructions,
       @JsonKey(
@@ -8809,6 +8827,11 @@ class _SessionConfig extends SessionConfig {
         super._();
   factory _SessionConfig.fromJson(Map<String, dynamic> json) =>
       _$SessionConfigFromJson(json);
+
+  /// The session type.
+  @override
+  @JsonKey()
+  final SessionConfigType type;
 
   /// Ephemeral key returned by the API.
   @override
@@ -8943,6 +8966,7 @@ class _SessionConfig extends SessionConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SessionConfig &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.clientSecret, clientSecret) ||
                 other.clientSecret == clientSecret) &&
             const DeepCollectionEquality()
@@ -8973,6 +8997,7 @@ class _SessionConfig extends SessionConfig {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      type,
       clientSecret,
       const DeepCollectionEquality().hash(_modalities),
       instructions,
@@ -8988,7 +9013,7 @@ class _SessionConfig extends SessionConfig {
 
   @override
   String toString() {
-    return 'SessionConfig(clientSecret: $clientSecret, modalities: $modalities, instructions: $instructions, voice: $voice, inputAudioFormat: $inputAudioFormat, outputAudioFormat: $outputAudioFormat, inputAudioTranscription: $inputAudioTranscription, turnDetection: $turnDetection, tools: $tools, toolChoice: $toolChoice, temperature: $temperature, maxResponseOutputTokens: $maxResponseOutputTokens)';
+    return 'SessionConfig(type: $type, clientSecret: $clientSecret, modalities: $modalities, instructions: $instructions, voice: $voice, inputAudioFormat: $inputAudioFormat, outputAudioFormat: $outputAudioFormat, inputAudioTranscription: $inputAudioTranscription, turnDetection: $turnDetection, tools: $tools, toolChoice: $toolChoice, temperature: $temperature, maxResponseOutputTokens: $maxResponseOutputTokens)';
   }
 }
 
@@ -9001,7 +9026,8 @@ abstract mixin class _$SessionConfigCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'client_secret', includeIfNull: false)
+      {SessionConfigType type,
+      @JsonKey(name: 'client_secret', includeIfNull: false)
       SessionConfigClientSecret? clientSecret,
       @JsonKey(includeIfNull: false) List<Modality>? modalities,
       @JsonKey(includeIfNull: false) String? instructions,
@@ -9057,6 +9083,7 @@ class __$SessionConfigCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? type = null,
     Object? clientSecret = freezed,
     Object? modalities = freezed,
     Object? instructions = freezed,
@@ -9071,6 +9098,10 @@ class __$SessionConfigCopyWithImpl<$Res>
     Object? maxResponseOutputTokens = freezed,
   }) {
     return _then(_SessionConfig(
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as SessionConfigType,
       clientSecret: freezed == clientSecret
           ? _self.clientSecret
           : clientSecret // ignore: cast_nullable_to_non_nullable
